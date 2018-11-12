@@ -6,7 +6,7 @@ from bsonrpc import JSONRpc
 from bsonrpc.exceptions import FramingError
 from bsonrpc.framing import (
 	JSONFramingNetstring, JSONFramingNone, JSONFramingRFC7464)
-import pickle
+import pickle, json
 
 #defining nodes
 leaf1 = node("leaf1")
@@ -35,6 +35,12 @@ with open('cereal.txt', 'rb') as cerealFile:
 	root = pickle.load(cerealFile)
 
 root.show()
+
+x = convert(root)
+y = json.dumps(x)
+
+with open('request.json', 'w') as jsonFile:
+    json.dump(y,jsonFile)
 
 rpc.close() # Closes the socket 's' also
 
